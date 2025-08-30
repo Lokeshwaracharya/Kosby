@@ -93,42 +93,150 @@
     <script>
         document.addEventListener('DOMContentLoaded', () => {
 
-            // Pre-defined trade data (our placeholders)
-            const trades = [
-                {
-                    id: 'tesla-x',
-                    companyA: { name: 'Tesla, Inc.', location: 'Austin, TX', value: '$6.5B' },
-                    companyB: { name: 'X Corp.', location: 'San Francisco, CA', value: '$4.2B' },
-                    status: { text: 'In Progress', color: 'bg-yellow-400 text-yellow-900' },
-                    newsArticles: [
-                        { image: 'https://placehold.co/400x250/E5E7EB/1F2937?text=Tesla+and+X+Merger', title: 'Tesla and X: The Merger of Tech Giants', description: 'Analysts predict a seamless integration of operations.', link: '#' },
-                        { image: 'https://placehold.co/400x250/E5E7EB/1F2937?text=Market+Reacts', title: 'Market Reacts to Merger Announcement', description: 'Shares of both companies see a significant increase.', link: '#' },
-                        { image: 'https://placehold.co/400x250/E5E7EB/1F2937?text=Future+of+EV', title: 'The Future of EV and Social Media', description: 'How this deal could change the landscape of two industries.', link: '#' },
-                    ]
-                },
-                {
-                    id: 'amazon-mgm',
-                    companyA: { name: 'Amazon', location: 'Seattle, WA', value: '$8.5B' },
-                    companyB: { name: 'MGM Holdings', location: 'Beverly Hills, CA', value: '$8.5B' },
-                    status: { text: 'Completed', color: 'bg-green-400 text-green-900' },
-                    newsArticles: [
-                        { image: 'https://placehold.co/400x250/E5E7EB/1F2937?text=Amazon+Acquires+MGM', title: 'Amazon Finalizes Acquisition of MGM', description: 'The deal is expected to bolster Prime Video\'s content library.', link: '#' },
-                        { image: 'https://placehold.co/400x250/E5E7EB/1F2937?text=Streaming+Wars', title: 'Amazon and the Streaming Wars', description: 'A deep dive into the implications of this major acquisition.', link: '#' },
-                        { image: 'https://placehold.co/400x250/E5E7EB/1F2937?text=Classic+Films', title: 'MGM\'s Classic Library Joins Prime', description: 'Hundreds of classic films and TV shows are now available to stream.', link: '#' },
-                    ]
-                },
-                {
-                    id: 'nvidia-arm',
-                    companyA: { name: 'NVIDIA', location: 'Santa Clara, CA', value: '$40B' },
-                    companyB: { name: 'Arm Holdings', location: 'Cambridge, UK', value: '$40B' },
-                    status: { text: 'Cancelled', color: 'bg-red-400 text-red-900' },
-                    newsArticles: [
-                        { image: 'https://placehold.co/400x250/E5E7EB/1F2937?text=NVIDIA+and+Arm+Deal+Fails', title: 'NVIDIA-Arm Acquisition Collapses', description: 'Regulatory hurdles cited as the primary reason for the failed deal.', link: '#' },
-                        { image: 'https://placehold.co/400x250/E5E7EB/1F2937?text=Industry+Impact', title: 'What the Failed Deal Means for the Chip Industry', description: 'The decision sends shockwaves across the semiconductor market.', link: '#' },
-                        { image: 'https://placehold.co/400x250/E5E7EB/1F2937?text=Arm+Goes+Public', title: 'Arm Prepares for IPO Following NVIDIA Deal Termination', description: 'The company is now focusing on a public listing instead.', link: '#' },
-                    ]
-                },
-            ];
+           // Pre-defined trade data (our placeholders)
+const trades = [
+    {
+        id: 'spading-tonaliq',
+        companyA: { name: 'SPADING HOLDINGS IRAQ DIVISION', location: 'Baghdad, IQ', value: 'IQD$3.8B' },
+        companyB: { name: 'TONALIQ INSURANCE', location: 'Manama, BH', value: 'IQD$1.0B' },
+        status: { text: 'In Progress', color: 'bg-yellow-400 text-yellow-900' },
+        newsArticles: [
+            { image: 'https://placehold.co/400x250/EEE/111?text=Spading+Merger', title: 'Spading Expands With Tonaliq Merger', description: 'Experts say this merger could significantly boost Spading Holdings’ influence in the Middle East.', link: '#' },
+            { image: 'https://placehold.co/400x250/EEE/111?text=Tonaliq+Trust', title: 'Concerns Over Young Leadership at Tonaliq', description: 'Industry voices question the trustability of a 16-year-old leading an insurance firm of this scale.', link: '#' },
+        ]
+    },
+    {
+        id: 'arqam-damascus',
+        companyA: { name: 'ARQAM ENERGY PARTNERS', location: 'Dubai, AE', value: 'AED$5.6B' },
+        companyB: { name: 'DAMASCUS POWER GRID CORP.', location: 'Damascus, SY', value: 'SYP£2.1T' },
+        status: { text: 'In Progress', color: 'bg-yellow-400 text-yellow-900' },
+        newsArticles: [
+            { image: 'https://placehold.co/400x250', title: 'Arqam Expands Into Syria', description: 'Energy analysts predict infrastructure modernization across Damascus.', link: '#' },
+            { image: 'https://placehold.co/400x250', title: 'Regional Politics Complicate Deal', description: 'Experts warn that geopolitical tensions may slow the acquisition.', link: '#' },
+        ]
+    },
+    {
+        id: 'novo-balkan',
+        companyA: { name: 'NOVO TELECOM GROUP', location: 'Zagreb, HR', value: '€2.4B' },
+        companyB: { name: 'BALKANET BROADBAND', location: 'Belgrade, RS', value: '€1.7B' },
+        status: { text: 'Completed', color: 'bg-green-400 text-green-900' },
+        newsArticles: [
+            { image: 'https://placehold.co/400x250', title: 'Novo and Balkanet Merge Successfully', description: 'Customers across the Balkans now see faster service and expanded access.', link: '#' },
+            { image: 'https://placehold.co/400x250', title: 'Telecom Shakeup in the Balkans', description: 'The merger challenges incumbent providers in Eastern Europe.', link: '#' },
+        ]
+    },
+    {
+        id: 'garuda-mall',
+        companyA: { name: 'GARUDA RETAIL CONSORTIUM', location: 'Jakarta, ID', value: 'IDR₨55T' },
+        companyB: { name: 'MEGAMALL HOLDINGS', location: 'Surabaya, ID', value: 'IDR₨18T' },
+        status: { text: 'Completed', color: 'bg-green-400 text-green-900' },
+        newsArticles: [
+            { image: 'https://placehold.co/400x250', title: 'Garuda Secures Megamall Assets', description: 'The deal strengthens Garuda’s retail dominance across Java.', link: '#' },
+            { image: 'https://placehold.co/400x250', title: 'Indonesia’s Shopping Future', description: 'Malls evolve with online integration post-merger.', link: '#' },
+        ]
+    },
+    {
+        id: 'baku-caspian',
+        companyA: { name: 'BAKU PIPELINE AUTHORITY', location: 'Baku, AZ', value: 'AZN₼7.3B' },
+        companyB: { name: 'CASPIAN SHIPPING CO.', location: 'Aktau, KZ', value: 'KZT₸3.2T' },
+        status: { text: 'In Progress', color: 'bg-yellow-400 text-yellow-900' },
+        newsArticles: [
+            { image: 'https://placehold.co/400x250', title: 'Pipeline Meets Shipping', description: 'Cross-Caspian energy logistics expected to improve efficiency.', link: '#' },
+            { image: 'https://placehold.co/400x250', title: 'Environmental Concerns Arise', description: 'Activists raise alarms over increased oil transport risks.', link: '#' },
+        ]
+    },
+    {
+        id: 'sofia-techno',
+        companyA: { name: 'SOFIA TECHNOLOGIES', location: 'Sofia, BG', value: '€940M' },
+        companyB: { name: 'VARNA DIGITAL SYSTEMS', location: 'Varna, BG', value: '€620M' },
+        status: { text: 'Completed', color: 'bg-green-400 text-green-900' },
+        newsArticles: [
+            { image: 'https://placehold.co/400x250', title: 'Bulgarian Tech Merger Completed', description: 'Sofia Technologies integrates Varna’s digital infrastructure.', link: '#' },
+            { image: 'https://placehold.co/400x250', title: 'IT Consolidation in Bulgaria', description: 'Analysts foresee a stronger competitive position in EU contracts.', link: '#' },
+        ]
+    },
+    {
+        id: 'cairo-horizons',
+        companyA: { name: 'CAIRO HORIZONS BANK', location: 'Cairo, EG', value: 'EGP£62B' },
+        companyB: { name: 'NILE MICROFINANCE', location: 'Giza, EG', value: 'EGP£9B' },
+        status: { text: 'In Progress', color: 'bg-yellow-400 text-yellow-900' },
+        newsArticles: [
+            { image: 'https://placehold.co/400x250', title: 'Banking Expansion in Egypt', description: 'Cairo Horizons seeks to dominate the microfinance market.', link: '#' },
+            { image: 'https://placehold.co/400x250', title: 'Concerns for Small Borrowers', description: 'Critics worry small clients may face higher fees.', link: '#' },
+        ]
+    },
+    {
+        id: 'detroit-iron',
+        companyA: { name: 'DETROIT IRON AUTOMOTIVE', location: 'Detroit, MI', value: '$12.4B' },
+        companyB: { name: 'GREAT PLAINS ELECTRIC MOTORS', location: 'Omaha, NE', value: '$5.1B' },
+        status: { text: 'Completed', color: 'bg-green-400 text-green-900' },
+        newsArticles: [
+            { image: 'https://placehold.co/400x250', title: 'Detroit Iron Goes Electric', description: 'The acquisition accelerates U.S. EV production lines.', link: '#' },
+            { image: 'https://placehold.co/400x250', title: 'Midwest Innovation Boost', description: 'Nebraska-based motor designs find a bigger stage.', link: '#' },
+        ]
+    },
+    {
+        id: 'ankara-aero',
+        companyA: { name: 'ANKARA AEROSPACE SYSTEMS', location: 'Ankara, TR', value: 'TRY₺38B' },
+        companyB: { name: 'BLACK SEA DRONE TECH', location: 'Trabzon, TR', value: 'TRY₺11B' },
+        status: { text: 'In Progress', color: 'bg-yellow-400 text-yellow-900' },
+        newsArticles: [
+            { image: 'https://placehold.co/400x250', title: 'Turkey’s Drone Industry Consolidates', description: 'Merger expected to strengthen exports to Europe and Asia.', link: '#' },
+            { image: 'https://placehold.co/400x250', title: 'Military Applications Debated', description: 'Observers question potential escalation in regional arms race.', link: '#' },
+        ]
+    },
+    {
+        id: 'riyadh-health',
+        companyA: { name: 'RIYADH HEALTH CONSORTIUM', location: 'Riyadh, SA', value: 'SAR﷼22B' },
+        companyB: { name: 'GULF MEDICAL ALLIANCE', location: 'Jeddah, SA', value: 'SAR﷼11B' },
+        status: { text: 'Completed', color: 'bg-green-400 text-green-900' },
+        newsArticles: [
+            { image: 'https://placehold.co/400x250', title: 'Healthcare Giants Unite', description: 'Saudi healthcare system sees new wave of investment.', link: '#' },
+            { image: 'https://placehold.co/400x250', title: 'Patients to Benefit From Merger', description: 'Combined resources mean shorter wait times and expanded care.', link: '#' },
+        ]
+    },
+    {
+        id: 'warsaw-cyber',
+        companyA: { name: 'WARSAW CYBER DEFENSE', location: 'Warsaw, PL', value: 'PLN zł9.4B' },
+        companyB: { name: 'KRAKOW SECURITY LABS', location: 'Krakow, PL', value: 'PLN zł4.7B' },
+        status: { text: 'In Progress', color: 'bg-yellow-400 text-yellow-900' },
+        newsArticles: [
+            { image: 'https://placehold.co/400x250', title: 'Poland Strengthens Cyber Defenses', description: 'The merger could protect national infrastructure from cyberattacks.', link: '#' },
+            { image: 'https://placehold.co/400x250', title: 'Jobs May Be Cut', description: 'Analysts predict redundancies across IT support staff.', link: '#' },
+        ]
+    },
+    {
+        id: 'tehran-green',
+        companyA: { name: 'TEHRAN GREEN ENERGY CO.', location: 'Tehran, IR', value: 'IRR﷼580T' },
+        companyB: { name: 'PERSIAN SOLAR SOLUTIONS', location: 'Shiraz, IR', value: 'IRR﷼220T' },
+        status: { text: 'Completed', color: 'bg-green-400 text-green-900' },
+        newsArticles: [
+            { image: 'https://placehold.co/400x250', title: 'Iran Invests in Solar', description: 'The completed deal accelerates Iran’s renewable energy shift.', link: '#' },
+            { image: 'https://placehold.co/400x250', title: 'Local Manufacturing Push', description: 'Solar panel production expected to rise inside Iran.', link: '#' },
+        ]
+    },
+    {
+        id: 'boston-ai',
+        companyA: { name: 'BOSTON QUANTUM AI', location: 'Boston, MA', value: '$15.2B' },
+        companyB: { name: 'SILICON VALLEY NEURAL SYSTEMS', location: 'San Jose, CA', value: '$9.7B' },
+        status: { text: 'In Progress', color: 'bg-yellow-400 text-yellow-900' },
+        newsArticles: [
+            { image: 'https://placehold.co/400x250', title: 'AI Giants Plot Merger', description: 'Boston and Silicon Valley leaders in AI research plan to merge.', link: '#' },
+            { image: 'https://placehold.co/400x250', title: 'Privacy Concerns Raised', description: 'Lawmakers call for strict oversight on merged data capabilities.', link: '#' },
+        ]
+    },
+    {
+        id: 'doha-sands',
+        companyA: { name: 'DOHA REALTY GROUP', location: 'Doha, QA', value: 'QAR﷼12B' },
+        companyB: { name: 'SANDS INFRASTRUCTURE', location: 'Al Rayyan, QA', value: 'QAR﷼5.3B' },
+        status: { text: 'Completed', color: 'bg-green-400 text-green-900' },
+        newsArticles: [
+            { image: 'https://placehold.co/400x250', title: 'Doha Realty Acquires Sands Infrastructure', description: 'Real estate experts predict a boom in mixed-use developments.', link: '#' },
+            { image: 'https://placehold.co/400x250', title: 'Infrastructure Expansion Ahead', description: 'Sands’ portfolio brings strategic land near stadiums into play.', link: '#' },
+        ]
+    }
+];
+
 
             const resultsContainer = document.getElementById('results-container');
             const searchInput = document.getElementById('trade-search');
