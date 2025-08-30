@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KOSBY FINANCIAL CO.</title>
+    <!-- Inter Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .transition-colors {
+            transition-property: background-color, border-color, color, fill, stroke;
+            transition-duration: 500ms;
+            transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        /* Custom styles for the search bar focus state */
+        .search-input:focus {
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.5); /* blue-500 with opacity */
+        }
+        .dark .search-input:focus {
+            box-shadow: 0 0 0 3px rgba(147, 197, 253, 0.5); /* blue-300 with opacity */
+        }
+    </style>
+</head>
+<body class="bg-gray-50 dark:bg-gray-900 transition-colors duration-500">
+    <!-- Main Container -->
+    <div class="container mx-auto p-4 sm:p-8">
+
+        <!-- Dark Mode Toggle -->
+        <div class="flex justify-end mb-4">
+            <button id="theme-toggle" class="p-2 rounded-full bg-gray-200 dark:bg-gray-800 text-gray-800 dark:text-gray-200 shadow-md focus:outline-none focus:ring-2 focus:ring-gray-400">
+                <svg id="sun-icon" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
+                </svg>
+                <svg id="moon-icon" class="h-6 w-6 hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
+                </svg>
+            </button>
+        </div>
+
+        <!-- Header and Logo -->
+        <header class="flex flex-col items-center justify-center text-center py-8 sm:py-16">
+            <img src="https://i.imgur.com/lXcaR36.png" alt="KOSBY Logo" class="w-48 md:w-64 lg:w-80 h-auto mx-auto mb-6 shadow-xl rounded-full">
+            <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 dark:text-white mb-4">KOSBY FINANCIAL CO.</h1>
+            <p class="text-lg md:text-xl text-gray-600 dark:text-gray-300 max-w-2xl">
+                Escrow, merger meddling and acquisition statuses, courtesy of our finance department.
+            </p>
+        </header>
+
+        <!-- KOSBY History Section -->
+        <section class="mt-8 mb-16 max-w-4xl mx-auto p-6 rounded-2xl bg-white dark:bg-gray-800 shadow-lg">
+            <h2 class="text-2xl md:text-3xl font-semibold text-gray-900 dark:text-white mb-4 text-center">Our History</h2>
+            <p class="text-gray-700 dark:text-gray-300 text-center text-md md:text-lg">
+                Since our founding in 2002, KOSBY has been at the forefront of financial escrow and transaction tracking. Our mission is to provide unparalleled transparency and security in a complex financial world. We have successfully overseen countless mergers and acquisitions, building a legacy of trust and reliability that our clients have come to depend on.
+            </p>
+        </section>
+
+        <!-- Trade Tracker Section -->
+        <section class="mt-12">
+            <h2 class="text-2xl md:text-3xl font-semibold text-gray-900 dark:text-white mb-6 text-center">Trade Tracker</h2>
+            <div class="max-w-4xl mx-auto">
+                <!-- Search Bar -->
+                <div class="relative w-full mb-8">
+                    <input type="text" id="trade-search" placeholder="Search for a company or deal..." class="search-input w-full p-4 rounded-full border-2 border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-white shadow-lg transition-colors focus:ring-4 focus:ring-blue-500/50 dark:focus:ring-blue-300/50">
+                    <svg class="absolute right-4 top-1/2 -translate-y-1/2 h-6 w-6 text-gray-400 dark:text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                    </svg>
+                </div>
+                <!-- Search Results and Related News Container -->
+                <div id="results-container" class="space-y-10 transition-opacity duration-300 ease-in-out">
+                    <div class="p-10 text-center text-gray-500 dark:text-gray-400 bg-gray-100 dark:bg-gray-800 rounded-2xl shadow-lg">
+                        <p class="text-lg">Enter a company name like "Tesla" or "Amazon" to see the latest trade statuses.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="mt-20 py-8 text-center text-gray-500 dark:text-gray-400">
+            <p>&copy; 2025 KOSBY. All rights reserved.</p>
+        </footer>
+
+    </div>
+
+    <!-- JavaScript for functionality -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+
+            // Pre-defined trade data (our placeholders)
+            const trades = [
+                {
+                    id: 'tesla-x',
+                    companyA: { name: 'Tesla, Inc.', location: 'Austin, TX', value: '$6.5B' },
+                    companyB: { name: 'X Corp.', location: 'San Francisco, CA', value: '$4.2B' },
+                    status: { text: 'In Progress', color: 'bg-yellow-400 text-yellow-900' },
+                    newsArticles: [
+                        { image: 'https://placehold.co/400x250/E5E7EB/1F2937?text=Tesla+and+X+Merger', title: 'Tesla and X: The Merger of Tech Giants', description: 'Analysts predict a seamless integration of operations.', link: '#' },
+                        { image: 'https://placehold.co/400x250/E5E7EB/1F2937?text=Market+Reacts', title: 'Market Reacts to Merger Announcement', description: 'Shares of both companies see a significant increase.', link: '#' },
+                        { image: 'https://placehold.co/400x250/E5E7EB/1F2937?text=Future+of+EV', title: 'The Future of EV and Social Media', description: 'How this deal could change the landscape of two industries.', link: '#' },
+                    ]
+                },
+                {
+                    id: 'amazon-mgm',
+                    companyA: { name: 'Amazon', location: 'Seattle, WA', value: '$8.5B' },
+                    companyB: { name: 'MGM Holdings', location: 'Beverly Hills, CA', value: '$8.5B' },
+                    status: { text: 'Completed', color: 'bg-green-400 text-green-900' },
+                    newsArticles: [
+                        { image: 'https://placehold.co/400x250/E5E7EB/1F2937?text=Amazon+Acquires+MGM', title: 'Amazon Finalizes Acquisition of MGM', description: 'The deal is expected to bolster Prime Video\'s content library.', link: '#' },
+                        { image: 'https://placehold.co/400x250/E5E7EB/1F2937?text=Streaming+Wars', title: 'Amazon and the Streaming Wars', description: 'A deep dive into the implications of this major acquisition.', link: '#' },
+                        { image: 'https://placehold.co/400x250/E5E7EB/1F2937?text=Classic+Films', title: 'MGM\'s Classic Library Joins Prime', description: 'Hundreds of classic films and TV shows are now available to stream.', link: '#' },
+                    ]
+                },
+                {
+                    id: 'nvidia-arm',
+                    companyA: { name: 'NVIDIA', location: 'Santa Clara, CA', value: '$40B' },
+                    companyB: { name: 'Arm Holdings', location: 'Cambridge, UK', value: '$40B' },
+                    status: { text: 'Cancelled', color: 'bg-red-400 text-red-900' },
+                    newsArticles: [
+                        { image: 'https://placehold.co/400x250/E5E7EB/1F2937?text=NVIDIA+and+Arm+Deal+Fails', title: 'NVIDIA-Arm Acquisition Collapses', description: 'Regulatory hurdles cited as the primary reason for the failed deal.', link: '#' },
+                        { image: 'https://placehold.co/400x250/E5E7EB/1F2937?text=Industry+Impact', title: 'What the Failed Deal Means for the Chip Industry', description: 'The decision sends shockwaves across the semiconductor market.', link: '#' },
+                        { image: 'https://placehold.co/400x250/E5E7EB/1F2937?text=Arm+Goes+Public', title: 'Arm Prepares for IPO Following NVIDIA Deal Termination', description: 'The company is now focusing on a public listing instead.', link: '#' },
+                    ]
+                },
+            ];
+
+            const resultsContainer = document.getElementById('results-container');
+            const searchInput = document.getElementById('trade-search');
+            const themeToggleBtn = document.getElementById('theme-toggle');
+            const sunIcon = document.getElementById('sun-icon');
+            const moonIcon = document.getElementById('moon-icon');
+
+            // Set initial theme based on localStorage or system preference
+            const isDarkMode = localStorage.getItem('theme') === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches);
+            if (isDarkMode) {
+                document.documentElement.classList.add('dark');
+                sunIcon.classList.add('hidden');
+                moonIcon.classList.remove('hidden');
+            } else {
+                document.documentElement.classList.remove('dark');
+                sunIcon.classList.remove('hidden');
+                moonIcon.classList.add('hidden');
+            }
+
+            // Dark Mode toggle handler
+            themeToggleBtn.addEventListener('click', () => {
+                const isDark = document.documentElement.classList.toggle('dark');
+                if (isDark) {
+                    localStorage.setItem('theme', 'dark');
+                    sunIcon.classList.add('hidden');
+                    moonIcon.classList.remove('hidden');
+                } else {
+                    localStorage.setItem('theme', 'light');
+                    sunIcon.classList.remove('hidden');
+                    moonIcon.classList.add('hidden');
+                }
+            });
+
+            // Function to render a single trade card
+            function renderTradeCard(trade) {
+                const newsHtml = trade.newsArticles.map(article => `
+                    <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-lg overflow-hidden flex flex-col transition-transform hover:scale-[1.02]">
+                        <img src="${article.image}" alt="${article.title}" class="w-full h-32 object-cover">
+                        <div class="p-4 flex flex-col flex-1">
+                            <h4 class="text-lg font-medium text-gray-900 dark:text-white mb-2">${article.title}</h4>
+                            <p class="text-sm text-gray-600 dark:text-gray-400 mb-4 flex-1">${article.description}</p>
+                            <a href="#" class="text-blue-600 dark:text-blue-400 hover:underline font-semibold text-sm">Read More</a>
+                        </div>
+                    </div>
+                `).join('');
+
+                return `
+                    <div class="trade-card p-6 rounded-3xl shadow-xl bg-gray-100 dark:bg-gray-800 transition-colors">
+                        <!-- Trade Details -->
+                        <div class="flex flex-col md:flex-row items-center justify-between gap-6 mb-8">
+                            <!-- Company A Bubble -->
+                            <div class="w-full md:w-1/3 p-6 rounded-2xl bg-white dark:bg-gray-700 shadow-md">
+                                <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-2">${trade.companyA.name}</h3>
+                                <p class="text-sm text-gray-600 dark:text-gray-400">Location: ${trade.companyA.location}</p>
+                                <p class="text-sm text-gray-600 dark:text-gray-400">Value: ${trade.companyA.value}</p>
+                            </div>
+                            
+                            <!-- Status & Arrows -->
+                            <div class="flex flex-col items-center justify-center w-full md:w-1/3 text-center">
+                                <span class="text-3xl text-gray-400 dark:text-gray-500 transform -scale-y-100 mb-1">↑</span>
+                                <div class="p-2 sm:p-3 rounded-full ${trade.status.color} font-bold text-xs sm:text-sm shadow-inner min-w-[120px]">
+                                    ${trade.status.text.toUpperCase()}
+                                </div>
+                                <span class="text-3xl text-gray-400 dark:text-gray-500 mt-1">↓</span>
+                            </div>
+
+                            <!-- Company B Bubble -->
+                            <div class="w-full md:w-1/3 p-6 rounded-2xl bg-white dark:bg-gray-700 shadow-md">
+                                <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-2">${trade.companyB.name}</h3>
+                                <p class="text-sm text-gray-600 dark:text-gray-400">Location: ${trade.companyB.location}</p>
+                                <p class="text-sm text-gray-600 dark:text-gray-400">Value: ${trade.companyB.value}</p>
+                            </div>
+                        </div>
+
+                        <!-- Related News -->
+                        <div>
+                            <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-4">Related News Articles</h3>
+                            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                                ${newsHtml}
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }
+
+            // Function to render results
+            function renderResults(filteredTrades) {
+                // Fade out old content
+                resultsContainer.classList.add('opacity-0');
+
+                // Wait for the fade-out to complete before changing content and fading back in
+                setTimeout(() => {
+                    if (filteredTrades.length > 0) {
+                        const html = filteredTrades.map(trade => renderTradeCard(trade)).join('');
+                        resultsContainer.innerHTML = html;
+                    } else {
+                        resultsContainer.innerHTML = `
+                            <div class="p-10 text-center text-gray-500 dark:text-gray-400 bg-gray-100 dark:bg-gray-800 rounded-2xl shadow-lg">
+                                <p class="text-lg">No trades found matching your search. Try "Tesla" or "Amazon".</p>
+                            </div>
+                        `;
+                    }
+                    // Fade in new content
+                    resultsContainer.classList.remove('opacity-0');
+                }, 300); // This delay should match the CSS transition duration
+            }
+
+            let debounceTimeout;
+
+            // Search functionality with debounce
+            searchInput.addEventListener('keyup', (event) => {
+                clearTimeout(debounceTimeout);
+                const searchTerm = event.target.value.toLowerCase();
+                
+                debounceTimeout = setTimeout(() => {
+                    if (searchTerm.trim() !== '') {
+                        const filtered = trades.filter(trade =>
+                            trade.companyA.name.toLowerCase().includes(searchTerm) ||
+                            trade.companyB.name.toLowerCase().includes(searchTerm) ||
+                            trade.id.toLowerCase().includes(searchTerm)
+                        );
+                        renderResults(filtered);
+                    } else {
+                        // Show prompt message if search bar is empty
+                        resultsContainer.innerHTML = `
+                            <div class="p-10 text-center text-gray-500 dark:text-gray-400 bg-gray-100 dark:bg-gray-800 rounded-2xl shadow-lg">
+                                <p class="text-lg">Enter a company name like "Tesla" or "Amazon" to see the latest trade statuses.</p>
+                            </div>
+                        `;
+                    }
+                }, 400); // 400ms delay after typing stops
+            });
+        });
+    </script>
+</body>
+</html>
