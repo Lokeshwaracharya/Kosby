@@ -15,8 +15,13 @@
             font-family: 'Inter', sans-serif;
         }
         .transition-colors {
-            transition-property: background-color, border-color, color, fill, stroke;
-            transition-duration: 500ms;
+            -webkit-transition: background-color 500ms, border-color 500ms, color 500ms, fill 500ms, stroke 500ms;
+            -moz-transition: background-color 500ms, border-color 500ms, color 500ms, fill 500ms, stroke 500ms;
+            -o-transition: background-color 500ms, border-color 500ms, color 500ms, fill 500ms, stroke 500ms;
+            transition: background-color 500ms, border-color 500ms, color 500ms, fill 500ms, stroke 500ms;
+            -webkit-transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+            -moz-transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+            -o-transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
             transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
         }
         /* Custom styles for the search bar focus state */
@@ -91,281 +96,283 @@
 
     <!-- JavaScript for functionality -->
     <script>
-        document.addEventListener('DOMContentLoaded', () => {
+        document.addEventListener('DOMContentLoaded', function() {
 
-           // Pre-defined trade data (our placeholders)
-const trades = [
-    {
-        id: 'spading-tonaliq',
-        companyA: { name: 'SPADING HOLDINGS IRAQ DIVISION', location: 'Baghdad, IQ', value: 'IQD$3.8B' },
-        companyB: { name: 'TONALIQ INSURANCE', location: 'Manama, BH', value: 'IQD$1.0B' },
-        status: { text: 'In Progress', color: 'bg-yellow-400 text-yellow-900' },
-        newsArticles: [
-            { image: 'https://placehold.co/400x250/EEE/111?text=Spading+Merger', title: 'Spading Expands With Tonaliq Merger', description: 'Experts say this merger could significantly boost Spading Holdings’ influence in the Middle East.', link: '#' },
-            { image: 'https://placehold.co/400x250/EEE/111?text=Tonaliq+Trust', title: 'Concerns Over Young Leadership at Tonaliq', description: 'Industry voices question the trustability of a 16-year-old leading an insurance firm of this scale.', link: '#' },
-        ]
-    },
-    {
-        id: 'arqam-damascus',
-        companyA: { name: 'ARQAM ENERGY PARTNERS', location: 'Dubai, AE', value: 'AED$5.6B' },
-        companyB: { name: 'DAMASCUS POWER GRID CORP.', location: 'Damascus, SY', value: 'SYP£2.1T' },
-        status: { text: 'In Progress', color: 'bg-yellow-400 text-yellow-900' },
-        newsArticles: [
-            { image: 'https://placehold.co/400x250', title: 'Arqam Expands Into Syria', description: 'Energy analysts predict infrastructure modernization across Damascus.', link: '#' },
-            { image: 'https://placehold.co/400x250', title: 'Regional Politics Complicate Deal', description: 'Experts warn that geopolitical tensions may slow the acquisition.', link: '#' },
-        ]
-    },
-    {
-        id: 'novo-balkan',
-        companyA: { name: 'NOVO TELECOM GROUP', location: 'Zagreb, HR', value: '€2.4B' },
-        companyB: { name: 'BALKANET BROADBAND', location: 'Belgrade, RS', value: '€1.7B' },
-        status: { text: 'Completed', color: 'bg-green-400 text-green-900' },
-        newsArticles: [
-            { image: 'https://placehold.co/400x250', title: 'Novo and Balkanet Merge Successfully', description: 'Customers across the Balkans now see faster service and expanded access.', link: '#' },
-            { image: 'https://placehold.co/400x250', title: 'Telecom Shakeup in the Balkans', description: 'The merger challenges incumbent providers in Eastern Europe.', link: '#' },
-        ]
-    },
-    {
-        id: 'garuda-mall',
-        companyA: { name: 'GARUDA RETAIL CONSORTIUM', location: 'Jakarta, ID', value: 'IDR₨55T' },
-        companyB: { name: 'MEGAMALL HOLDINGS', location: 'Surabaya, ID', value: 'IDR₨18T' },
-        status: { text: 'Completed', color: 'bg-green-400 text-green-900' },
-        newsArticles: [
-            { image: 'https://placehold.co/400x250', title: 'Garuda Secures Megamall Assets', description: 'The deal strengthens Garuda’s retail dominance across Java.', link: '#' },
-            { image: 'https://placehold.co/400x250', title: 'Indonesia’s Shopping Future', description: 'Malls evolve with online integration post-merger.', link: '#' },
-        ]
-    },
-    {
-        id: 'baku-caspian',
-        companyA: { name: 'BAKU PIPELINE AUTHORITY', location: 'Baku, AZ', value: 'AZN₼7.3B' },
-        companyB: { name: 'CASPIAN SHIPPING CO.', location: 'Aktau, KZ', value: 'KZT₸3.2T' },
-        status: { text: 'In Progress', color: 'bg-yellow-400 text-yellow-900' },
-        newsArticles: [
-            { image: 'https://placehold.co/400x250', title: 'Pipeline Meets Shipping', description: 'Cross-Caspian energy logistics expected to improve efficiency.', link: '#' },
-            { image: 'https://placehold.co/400x250', title: 'Environmental Concerns Arise', description: 'Activists raise alarms over increased oil transport risks.', link: '#' },
-        ]
-    },
-    {
-        id: 'sofia-techno',
-        companyA: { name: 'SOFIA TECHNOLOGIES', location: 'Sofia, BG', value: '€940M' },
-        companyB: { name: 'VARNA DIGITAL SYSTEMS', location: 'Varna, BG', value: '€620M' },
-        status: { text: 'Completed', color: 'bg-green-400 text-green-900' },
-        newsArticles: [
-            { image: 'https://placehold.co/400x250', title: 'Bulgarian Tech Merger Completed', description: 'Sofia Technologies integrates Varna’s digital infrastructure.', link: '#' },
-            { image: 'https://placehold.co/400x250', title: 'IT Consolidation in Bulgaria', description: 'Analysts foresee a stronger competitive position in EU contracts.', link: '#' },
-        ]
-    },
-    {
-        id: 'cairo-horizons',
-        companyA: { name: 'CAIRO HORIZONS BANK', location: 'Cairo, EG', value: 'EGP£62B' },
-        companyB: { name: 'NILE MICROFINANCE', location: 'Giza, EG', value: 'EGP£9B' },
-        status: { text: 'In Progress', color: 'bg-yellow-400 text-yellow-900' },
-        newsArticles: [
-            { image: 'https://placehold.co/400x250', title: 'Banking Expansion in Egypt', description: 'Cairo Horizons seeks to dominate the microfinance market.', link: '#' },
-            { image: 'https://placehold.co/400x250', title: 'Concerns for Small Borrowers', description: 'Critics worry small clients may face higher fees.', link: '#' },
-        ]
-    },
-    {
-        id: 'detroit-iron',
-        companyA: { name: 'DETROIT IRON AUTOMOTIVE', location: 'Detroit, MI', value: '$12.4B' },
-        companyB: { name: 'GREAT PLAINS ELECTRIC MOTORS', location: 'Omaha, NE', value: '$5.1B' },
-        status: { text: 'Completed', color: 'bg-green-400 text-green-900' },
-        newsArticles: [
-            { image: 'https://placehold.co/400x250', title: 'Detroit Iron Goes Electric', description: 'The acquisition accelerates U.S. EV production lines.', link: '#' },
-            { image: 'https://placehold.co/400x250', title: 'Midwest Innovation Boost', description: 'Nebraska-based motor designs find a bigger stage.', link: '#' },
-        ]
-    },
-    {
-        id: 'ankara-aero',
-        companyA: { name: 'ANKARA AEROSPACE SYSTEMS', location: 'Ankara, TR', value: 'TRY₺38B' },
-        companyB: { name: 'BLACK SEA DRONE TECH', location: 'Trabzon, TR', value: 'TRY₺11B' },
-        status: { text: 'In Progress', color: 'bg-yellow-400 text-yellow-900' },
-        newsArticles: [
-            { image: 'https://placehold.co/400x250', title: 'Turkey’s Drone Industry Consolidates', description: 'Merger expected to strengthen exports to Europe and Asia.', link: '#' },
-            { image: 'https://placehold.co/400x250', title: 'Military Applications Debated', description: 'Observers question potential escalation in regional arms race.', link: '#' },
-        ]
-    },
-    {
-        id: 'riyadh-health',
-        companyA: { name: 'RIYADH HEALTH CONSORTIUM', location: 'Riyadh, SA', value: 'SAR﷼22B' },
-        companyB: { name: 'GULF MEDICAL ALLIANCE', location: 'Jeddah, SA', value: 'SAR﷼11B' },
-        status: { text: 'Completed', color: 'bg-green-400 text-green-900' },
-        newsArticles: [
-            { image: 'https://placehold.co/400x250', title: 'Healthcare Giants Unite', description: 'Saudi healthcare system sees new wave of investment.', link: '#' },
-            { image: 'https://placehold.co/400x250', title: 'Patients to Benefit From Merger', description: 'Combined resources mean shorter wait times and expanded care.', link: '#' },
-        ]
-    },
-    {
-        id: 'warsaw-cyber',
-        companyA: { name: 'WARSAW CYBER DEFENSE', location: 'Warsaw, PL', value: 'PLN zł9.4B' },
-        companyB: { name: 'KRAKOW SECURITY LABS', location: 'Krakow, PL', value: 'PLN zł4.7B' },
-        status: { text: 'In Progress', color: 'bg-yellow-400 text-yellow-900' },
-        newsArticles: [
-            { image: 'https://placehold.co/400x250', title: 'Poland Strengthens Cyber Defenses', description: 'The merger could protect national infrastructure from cyberattacks.', link: '#' },
-            { image: 'https://placehold.co/400x250', title: 'Jobs May Be Cut', description: 'Analysts predict redundancies across IT support staff.', link: '#' },
-        ]
-    },
-    {
-        id: 'tehran-green',
-        companyA: { name: 'TEHRAN GREEN ENERGY CO.', location: 'Tehran, IR', value: 'IRR﷼580T' },
-        companyB: { name: 'PERSIAN SOLAR SOLUTIONS', location: 'Shiraz, IR', value: 'IRR﷼220T' },
-        status: { text: 'Completed', color: 'bg-green-400 text-green-900' },
-        newsArticles: [
-            { image: 'https://placehold.co/400x250', title: 'Iran Invests in Solar', description: 'The completed deal accelerates Iran’s renewable energy shift.', link: '#' },
-            { image: 'https://placehold.co/400x250', title: 'Local Manufacturing Push', description: 'Solar panel production expected to rise inside Iran.', link: '#' },
-        ]
-    },
-    {
-        id: 'boston-ai',
-        companyA: { name: 'BOSTON QUANTUM AI', location: 'Boston, MA', value: '$15.2B' },
-        companyB: { name: 'SILICON VALLEY NEURAL SYSTEMS', location: 'San Jose, CA', value: '$9.7B' },
-        status: { text: 'In Progress', color: 'bg-yellow-400 text-yellow-900' },
-        newsArticles: [
-            { image: 'https://placehold.co/400x250', title: 'AI Giants Plot Merger', description: 'Boston and Silicon Valley leaders in AI research plan to merge.', link: '#' },
-            { image: 'https://placehold.co/400x250', title: 'Privacy Concerns Raised', description: 'Lawmakers call for strict oversight on merged data capabilities.', link: '#' },
-        ]
-    },
-    {
-        id: 'doha-sands',
-        companyA: { name: 'DOHA REALTY GROUP', location: 'Doha, QA', value: 'QAR﷼12B' },
-        companyB: { name: 'SANDS INFRASTRUCTURE', location: 'Al Rayyan, QA', value: 'QAR﷼5.3B' },
-        status: { text: 'Completed', color: 'bg-green-400 text-green-900' },
-        newsArticles: [
-            { image: 'https://placehold.co/400x250', title: 'Doha Realty Acquires Sands Infrastructure', description: 'Real estate experts predict a boom in mixed-use developments.', link: '#' },
-            { image: 'https://placehold.co/400x250', title: 'Infrastructure Expansion Ahead', description: 'Sands’ portfolio brings strategic land near stadiums into play.', link: '#' },
-        ]
-    }
-];
+            // Pre-defined trade data (our placeholders)
+            var trades = [
+                {
+                    id: 'spading-tonaliq',
+                    companyA: { name: 'SPADING HOLDINGS IRAQ DIVISION', location: 'Baghdad, IQ', value: 'IQD$3.8B' },
+                    companyB: { name: 'TONALIQ INSURANCE', location: 'Manama, BH', value: 'IQD$1.0B' },
+                    status: { text: 'In Progress', color: 'bg-yellow-400 text-yellow-900' },
+                    newsArticles: [
+                        { image: 'https://placehold.co/400x250/EEE/111?text=Spading+Merger', title: 'Spading Expands With Tonaliq Merger', description: 'Experts say this merger could significantly boost Spading Holdings’ influence in the Middle East.', link: '#' },
+                        { image: 'https://placehold.co/400x250/EEE/111?text=Tonaliq+Trust', title: 'Concerns Over Young Leadership at Tonaliq', description: 'Industry voices question the trustability of a 16-year-old leading an insurance firm of this scale.', link: '#' },
+                    ]
+                },
+                {
+                    id: 'arqam-damascus',
+                    companyA: { name: 'ARQAM ENERGY PARTNERS', location: 'Dubai, AE', value: 'AED$5.6B' },
+                    companyB: { name: 'DAMASCUS POWER GRID CORP.', location: 'Damascus, SY', value: 'SYP£2.1T' },
+                    status: { text: 'In Progress', color: 'bg-yellow-400 text-yellow-900' },
+                    newsArticles: [
+                        { image: 'https://placehold.co/400x250', title: 'Arqam Expands Into Syria', description: 'Energy analysts predict infrastructure modernization across Damascus.', link: '#' },
+                        { image: 'https://placehold.co/400x250', title: 'Regional Politics Complicate Deal', description: 'Experts warn that geopolitical tensions may slow the acquisition.', link: '#' },
+                    ]
+                },
+                {
+                    id: 'novo-balkan',
+                    companyA: { name: 'NOVO TELECOM GROUP', location: 'Zagreb, HR', value: '€2.4B' },
+                    companyB: { name: 'BALKANET BROADBAND', location: 'Belgrade, RS', value: '€1.7B' },
+                    status: { text: 'Completed', color: 'bg-green-400 text-green-900' },
+                    newsArticles: [
+                        { image: 'https://placehold.co/400x250', title: 'Novo and Balkanet Merge Successfully', description: 'Customers across the Balkans now see faster service and expanded access.', link: '#' },
+                        { image: 'https://placehold.co/400x250', title: 'Telecom Shakeup in the Balkans', description: 'The merger challenges incumbent providers in Eastern Europe.', link: '#' },
+                    ]
+                },
+                {
+                    id: 'garuda-mall',
+                    companyA: { name: 'GARUDA RETAIL CONSORTIUM', location: 'Jakarta, ID', value: 'IDR₨55T' },
+                    companyB: { name: 'MEGAMALL HOLDINGS', location: 'Surabaya, ID', value: 'IDR₨18T' },
+                    status: { text: 'Completed', color: 'bg-green-400 text-green-900' },
+                    newsArticles: [
+                        { image: 'https://placehold.co/400x250', title: 'Garuda Secures Megamall Assets', description: 'The deal strengthens Garuda’s retail dominance across Java.', link: '#' },
+                        { image: 'https://placehold.co/400x250', title: 'Indonesia’s Shopping Future', description: 'Malls evolve with online integration post-merger.', link: '#' },
+                    ]
+                },
+                {
+                    id: 'baku-caspian',
+                    companyA: { name: 'BAKU PIPELINE AUTHORITY', location: 'Baku, AZ', value: 'AZN₼7.3B' },
+                    companyB: { name: 'CASPIAN SHIPPING CO.', location: 'Aktau, KZ', value: 'KZT₸3.2T' },
+                    status: { text: 'In Progress', color: 'bg-yellow-400 text-yellow-900' },
+                    newsArticles: [
+                        { image: 'https://placehold.co/400x250', title: 'Pipeline Meets Shipping', description: 'Cross-Caspian energy logistics expected to improve efficiency.', link: '#' },
+                        { image: 'https://placehold.co/400x250', title: 'Environmental Concerns Arise', description: 'Activists raise alarms over increased oil transport risks.', link: '#' },
+                    ]
+                },
+                {
+                    id: 'sofia-techno',
+                    companyA: { name: 'SOFIA TECHNOLOGIES', location: 'Sofia, BG', value: '€940M' },
+                    companyB: { name: 'VARNA DIGITAL SYSTEMS', location: 'Varna, BG', value: '€620M' },
+                    status: { text: 'Completed', color: 'bg-green-400 text-green-900' },
+                    newsArticles: [
+                        { image: 'https://placehold.co/400x250', title: 'Bulgarian Tech Merger Completed', description: 'Sofia Technologies integrates Varna’s digital infrastructure.', link: '#' },
+                        { image: 'https://placehold.co/400x250', title: 'IT Consolidation in Bulgaria', description: 'Analysts foresee a stronger competitive position in EU contracts.', link: '#' },
+                    ]
+                },
+                {
+                    id: 'cairo-horizons',
+                    companyA: { name: 'CAIRO HORIZONS BANK', location: 'Cairo, EG', value: 'EGP£62B' },
+                    companyB: { name: 'NILE MICROFINANCE', location: 'Giza, EG', value: 'EGP£9B' },
+                    status: { text: 'In Progress', color: 'bg-yellow-400 text-yellow-900' },
+                    newsArticles: [
+                        { image: 'https://placehold.co/400x250', title: 'Banking Expansion in Egypt', description: 'Cairo Horizons seeks to dominate the microfinance market.', link: '#' },
+                        { image: 'https://placehold.co/400x250', title: 'Concerns for Small Borrowers', description: 'Critics worry small clients may face higher fees.', link: '#' },
+                    ]
+                },
+                {
+                    id: 'detroit-iron',
+                    companyA: { name: 'DETROIT IRON AUTOMOTIVE', location: 'Detroit, MI', value: '$12.4B' },
+                    companyB: { name: 'GREAT PLAINS ELECTRIC MOTORS', location: 'Omaha, NE', value: '$5.1B' },
+                    status: { text: 'Completed', color: 'bg-green-400 text-green-900' },
+                    newsArticles: [
+                        { image: 'https://placehold.co/400x250', title: 'Detroit Iron Goes Electric', description: 'The acquisition accelerates U.S. EV production lines.', link: '#' },
+                        { image: 'https://placehold.co/400x250', title: 'Midwest Innovation Boost', description: 'Nebraska-based motor designs find a bigger stage.', link: '#' },
+                    ]
+                },
+                {
+                    id: 'ankara-aero',
+                    companyA: { name: 'ANKARA AEROSPACE SYSTEMS', location: 'Ankara, TR', value: 'TRY₺38B' },
+                    companyB: { name: 'BLACK SEA DRONE TECH', location: 'Trabzon, TR', value: 'TRY₺11B' },
+                    status: { text: 'In Progress', color: 'bg-yellow-400 text-yellow-900' },
+                    newsArticles: [
+                        { image: 'https://placehold.co/400x250', title: 'Turkey’s Drone Industry Consolidates', description: 'Merger expected to strengthen exports to Europe and Asia.', link: '#' },
+                        { image: 'https://placehold.co/400x250', title: 'Military Applications Debated', description: 'Observers question potential escalation in regional arms race.', link: '#' },
+                    ]
+                },
+                {
+                    id: 'riyadh-health',
+                    companyA: { name: 'RIYADH HEALTH CONSORTIUM', location: 'Riyadh, SA', value: 'SAR﷼22B' },
+                    companyB: { name: 'GULF MEDICAL ALLIANCE', location: 'Jeddah, SA', value: 'SAR﷼11B' },
+                    status: { text: 'Completed', color: 'bg-green-400 text-green-900' },
+                    newsArticles: [
+                        { image: 'https://placehold.co/400x250', title: 'Healthcare Giants Unite', description: 'Saudi healthcare system sees new wave of investment.', link: '#' },
+                        { image: 'https://placehold.co/400x250', title: 'Patients to Benefit From Merger', description: 'Combined resources mean shorter wait times and expanded care.', link: '#' },
+                    ]
+                },
+                {
+                    id: 'warsaw-cyber',
+                    companyA: { name: 'WARSAW CYBER DEFENSE', location: 'Warsaw, PL', value: 'PLN zł9.4B' },
+                    companyB: { name: 'KRAKOW SECURITY LABS', location: 'Krakow, PL', value: 'PLN zł4.7B' },
+                    status: { text: 'In Progress', color: 'bg-yellow-400 text-yellow-900' },
+                    newsArticles: [
+                        { image: 'https://placehold.co/400x250', title: 'Poland Strengthens Cyber Defenses', description: 'The merger could protect national infrastructure from cyberattacks.', link: '#' },
+                        { image: 'https://placehold.co/400x250', title: 'Jobs May Be Cut', description: 'Analysts predict redundancies across IT support staff.', link: '#' },
+                    ]
+                },
+                {
+                    id: 'tehran-green',
+                    companyA: { name: 'TEHRAN GREEN ENERGY CO.', location: 'Tehran, IR', value: 'IRR﷼580T' },
+                    companyB: { name: 'PERSIAN SOLAR SOLUTIONS', location: 'Shiraz, IR', value: 'IRR﷼220T' },
+                    status: { text: 'Completed', color: 'bg-green-400 text-green-900' },
+                    newsArticles: [
+                        { image: 'https://placehold.co/400x250', title: 'Iran Invests in Solar', description: 'The completed deal accelerates Iran’s renewable energy shift.', link: '#' },
+                        { image: 'https://placehold.co/400x250', title: 'Local Manufacturing Push', description: 'Solar panel production expected to rise inside Iran.', link: '#' },
+                    ]
+                },
+                {
+                    id: 'boston-ai',
+                    companyA: { name: 'BOSTON QUANTUM AI', location: 'Boston, MA', value: '$15.2B' },
+                    companyB: { name: 'SILICON VALLEY NEURAL SYSTEMS', location: 'San Jose, CA', value: '$9.7B' },
+                    status: { text: 'In Progress', color: 'bg-yellow-400 text-yellow-900' },
+                    newsArticles: [
+                        { image: 'https://placehold.co/400x250', title: 'AI Giants Plot Merger', description: 'Boston and Silicon Valley leaders in AI research plan to merge.', link: '#' },
+                        { image: 'https://placehold.co/400x250', title: 'Privacy Concerns Raised', description: 'Lawmakers call for strict oversight on merged data capabilities.', link: '#' },
+                    ]
+                },
+                {
+                    id: 'doha-sands',
+                    companyA: { name: 'DOHA REALTY GROUP', location: 'Doha, QA', value: 'QAR﷼12B' },
+                    companyB: { name: 'SANDS INFRASTRUCTURE', location: 'Al Rayyan, QA', value: 'QAR﷼5.3B' },
+                    status: { text: 'Completed', color: 'bg-green-400 text-green-900' },
+                    newsArticles: [
+                        { image: 'https://placehold.co/400x250', title: 'Doha Realty Acquires Sands Infrastructure', description: 'Real estate experts predict a boom in mixed-use developments.', link: '#' },
+                        { image: 'https://placehold.co/400x250', title: 'Infrastructure Expansion Ahead', description: 'Sands’ portfolio brings strategic land near stadiums into play.', link: '#' },
+                    ]
+                }
+            ];
 
+            var resultsContainer = document.getElementById('results-container');
+            var searchInput = document.getElementById('trade-search');
+            var themeToggleBtn = document.getElementById('theme-toggle');
+            var sunIcon = document.getElementById('sun-icon');
+            var moonIcon = document.getElementById('moon-icon');
 
-            const resultsContainer = document.getElementById('results-container');
-            const searchInput = document.getElementById('trade-search');
-            const themeToggleBtn = document.getElementById('theme-toggle');
-            const sunIcon = document.getElementById('sun-icon');
-            const moonIcon = document.getElementById('moon-icon');
-
-            // Set initial theme based on localStorage or system preference
-            const isDarkMode = localStorage.getItem('theme') === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches);
+            // Set initial theme based on localStorage
+            var isDarkMode = localStorage.getItem('theme') === 'dark';
             if (isDarkMode) {
-                document.documentElement.classList.add('dark');
-                sunIcon.classList.add('hidden');
-                moonIcon.classList.remove('hidden');
+                document.documentElement.className = 'dark';
+                sunIcon.style.display = 'none';
+                moonIcon.style.display = 'block';
             } else {
-                document.documentElement.classList.remove('dark');
-                sunIcon.classList.remove('hidden');
-                moonIcon.classList.add('hidden');
+                document.documentElement.className = '';
+                sunIcon.style.display = 'block';
+                moonIcon.style.display = 'none';
             }
 
             // Dark Mode toggle handler
-            themeToggleBtn.addEventListener('click', () => {
-                const isDark = document.documentElement.classList.toggle('dark');
+            themeToggleBtn.addEventListener('click', function() {
+                var isDark = document.documentElement.className.indexOf('dark') > -1;
                 if (isDark) {
-                    localStorage.setItem('theme', 'dark');
-                    sunIcon.classList.add('hidden');
-                    moonIcon.classList.remove('hidden');
-                } else {
+                    document.documentElement.className = '';
                     localStorage.setItem('theme', 'light');
-                    sunIcon.classList.remove('hidden');
-                    moonIcon.classList.add('hidden');
+                    sunIcon.style.display = 'block';
+                    moonIcon.style.display = 'none';
+                } else {
+                    document.documentElement.className = 'dark';
+                    localStorage.setItem('theme', 'dark');
+                    sunIcon.style.display = 'none';
+                    moonIcon.style.display = 'block';
                 }
             });
 
             // Function to render a single trade card
             function renderTradeCard(trade) {
-                const newsHtml = trade.newsArticles.map(article => `
-                    <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-lg overflow-hidden flex flex-col transition-transform hover:scale-[1.02]">
-                        <img src="${article.image}" alt="${article.title}" class="w-full h-32 object-cover">
-                        <div class="p-4 flex flex-col flex-1">
-                            <h4 class="text-lg font-medium text-gray-900 dark:text-white mb-2">${article.title}</h4>
-                            <p class="text-sm text-gray-600 dark:text-gray-400 mb-4 flex-1">${article.description}</p>
-                            <a href="#" class="text-blue-600 dark:text-blue-400 hover:underline font-semibold text-sm">Read More</a>
-                        </div>
-                    </div>
-                `).join('');
+                var newsHtml = trade.newsArticles.map(function(article) {
+                    return '' +
+                        '<div class="bg-white dark:bg-gray-800 rounded-2xl shadow-lg overflow-hidden flex flex-col transition-transform hover:scale-[1.02]">' +
+                        '    <img src="' + article.image + '" alt="' + article.title + '" class="w-full h-32 object-cover">' +
+                        '    <div class="p-4 flex flex-col flex-1">' +
+                        '        <h4 class="text-lg font-medium text-gray-900 dark:text-white mb-2">' + article.title + '</h4>' +
+                        '        <p class="text-sm text-gray-600 dark:text-gray-400 mb-4 flex-1">' + article.description + '</p>' +
+                        '        <a href="#" class="text-blue-600 dark:text-blue-400 hover:underline font-semibold text-sm">Read More</a>' +
+                        '    </div>' +
+                        '</div>';
+                }).join('');
 
-                return `
-                    <div class="trade-card p-6 rounded-3xl shadow-xl bg-gray-100 dark:bg-gray-800 transition-colors">
-                        <!-- Trade Details -->
-                        <div class="flex flex-col md:flex-row items-center justify-between gap-6 mb-8">
-                            <!-- Company A Bubble -->
-                            <div class="w-full md:w-1/3 p-6 rounded-2xl bg-white dark:bg-gray-700 shadow-md">
-                                <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-2">${trade.companyA.name}</h3>
-                                <p class="text-sm text-gray-600 dark:text-gray-400">Location: ${trade.companyA.location}</p>
-                                <p class="text-sm text-gray-600 dark:text-gray-400">Value: ${trade.companyA.value}</p>
-                            </div>
-                            
-                            <!-- Status & Arrows -->
-                            <div class="flex flex-col items-center justify-center w-full md:w-1/3 text-center">
-                                <span class="text-3xl text-gray-400 dark:text-gray-500 transform -scale-y-100 mb-1">↑</span>
-                                <div class="p-2 sm:p-3 rounded-full ${trade.status.color} font-bold text-xs sm:text-sm shadow-inner min-w-[120px]">
-                                    ${trade.status.text.toUpperCase()}
-                                </div>
-                                <span class="text-3xl text-gray-400 dark:text-gray-500 mt-1">↓</span>
-                            </div>
-
-                            <!-- Company B Bubble -->
-                            <div class="w-full md:w-1/3 p-6 rounded-2xl bg-white dark:bg-gray-700 shadow-md">
-                                <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-2">${trade.companyB.name}</h3>
-                                <p class="text-sm text-gray-600 dark:text-gray-400">Location: ${trade.companyB.location}</p>
-                                <p class="text-sm text-gray-600 dark:text-gray-400">Value: ${trade.companyB.value}</p>
-                            </div>
-                        </div>
-
-                        <!-- Related News -->
-                        <div>
-                            <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-4">Related News Articles</h3>
-                            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                                ${newsHtml}
-                            </div>
-                        </div>
-                    </div>
-                `;
+                return '' +
+                    '<div class="trade-card p-6 rounded-3xl shadow-xl bg-gray-100 dark:bg-gray-800 transition-colors">' +
+                    '    <!-- Trade Details -->' +
+                    '    <div class="flex flex-col md:flex-row items-center justify-between gap-6 mb-8">' +
+                    '        <!-- Company A Bubble -->' +
+                    '        <div class="w-full md:w-1/3 p-6 rounded-2xl bg-white dark:bg-gray-700 shadow-md">' +
+                    '            <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-2">' + trade.companyA.name + '</h3>' +
+                    '            <p class="text-sm text-gray-600 dark:text-gray-400">Location: ' + trade.companyA.location + '</p>' +
+                    '            <p class="text-sm text-gray-600 dark:text-gray-400">Value: ' + trade.companyA.value + '</p>' +
+                    '        </div>' +
+                    '        ' +
+                    '        <!-- Status & Arrows -->' +
+                    '        <div class="flex flex-col items-center justify-center w-full md:w-1/3 text-center">' +
+                    '            <span class="text-3xl text-gray-400 dark:text-gray-500 transform -scale-y-100 mb-1">↑</span>' +
+                    '            <div class="p-2 sm:p-3 rounded-full ' + trade.status.color + ' font-bold text-xs sm:text-sm shadow-inner min-w-[120px]">' +
+                    '                ' + trade.status.text.toUpperCase() + '' +
+                    '            </div>' +
+                    '            <span class="text-3xl text-gray-400 dark:text-gray-500 mt-1">↓</span>' +
+                    '        </div>' +
+                    '        ' +
+                    '        <!-- Company B Bubble -->' +
+                    '        <div class="w-full md:w-1/3 p-6 rounded-2xl bg-white dark:bg-gray-700 shadow-md">' +
+                    '            <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-2">' + trade.companyB.name + '</h3>' +
+                    '            <p class="text-sm text-gray-600 dark:text-gray-400">Location: ' + trade.companyB.location + '</p>' +
+                    '            <p class="text-sm text-gray-600 dark:text-gray-400">Value: ' + trade.companyB.value + '</p>' +
+                    '        </div>' +
+                    '    </div>' +
+                    '    <!-- Related News -->' +
+                    '    <div>' +
+                    '        <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-4">Related News Articles</h3>' +
+                    '        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">' +
+                    '            ' + newsHtml + '' +
+                    '        </div>' +
+                    '    </div>' +
+                    '</div>';
             }
 
             // Function to render results
             function renderResults(filteredTrades) {
                 // Fade out old content
-                resultsContainer.classList.add('opacity-0');
+                resultsContainer.style.opacity = '0';
 
                 // Wait for the fade-out to complete before changing content and fading back in
-                setTimeout(() => {
+                setTimeout(function() {
                     if (filteredTrades.length > 0) {
-                        const html = filteredTrades.map(trade => renderTradeCard(trade)).join('');
+                        var html = filteredTrades.map(function(trade) {
+                            return renderTradeCard(trade);
+                        }).join('');
                         resultsContainer.innerHTML = html;
                     } else {
-                        resultsContainer.innerHTML = `
-                            <div class="p-10 text-center text-gray-500 dark:text-gray-400 bg-gray-100 dark:bg-gray-800 rounded-2xl shadow-lg">
-                                <p class="text-lg">No trades found matching your search. Try "Tesla" or "Amazon".</p>
-                            </div>
-                        `;
+                        resultsContainer.innerHTML = '' +
+                            '<div class="p-10 text-center text-gray-500 dark:text-gray-400 bg-gray-100 dark:bg-gray-800 rounded-2xl shadow-lg">' +
+                            '    <p class="text-lg">No trades found matching your search. Try "Tesla" or "Amazon".</p>' +
+                            '</div>' +
+                            '';
                     }
                     // Fade in new content
-                    resultsContainer.classList.remove('opacity-0');
+                    resultsContainer.style.opacity = '1';
                 }, 300); // This delay should match the CSS transition duration
             }
 
-            let debounceTimeout;
+            var debounceTimeout;
 
             // Search functionality with debounce
-            searchInput.addEventListener('keyup', (event) => {
+            searchInput.addEventListener('keyup', function(event) {
                 clearTimeout(debounceTimeout);
-                const searchTerm = event.target.value.toLowerCase();
+                var searchTerm = event.target.value.toLowerCase();
                 
-                debounceTimeout = setTimeout(() => {
+                debounceTimeout = setTimeout(function() {
                     if (searchTerm.trim() !== '') {
-                        const filtered = trades.filter(trade =>
-                            trade.companyA.name.toLowerCase().includes(searchTerm) ||
-                            trade.companyB.name.toLowerCase().includes(searchTerm) ||
-                            trade.id.toLowerCase().includes(searchTerm)
-                        );
+                        var filtered = trades.filter(function(trade) {
+                            return trade.companyA.name.toLowerCase().indexOf(searchTerm) > -1 ||
+                                   trade.companyB.name.toLowerCase().indexOf(searchTerm) > -1 ||
+                                   trade.id.toLowerCase().indexOf(searchTerm) > -1;
+                        });
                         renderResults(filtered);
                     } else {
                         // Show prompt message if search bar is empty
-                        resultsContainer.innerHTML = `
-                            <div class="p-10 text-center text-gray-500 dark:text-gray-400 bg-gray-100 dark:bg-gray-800 rounded-2xl shadow-lg">
-                                <p class="text-lg">Enter a company name like "Tesla" or "Amazon" to see the latest trade statuses.</p>
-                            </div>
-                        `;
+                        resultsContainer.innerHTML = '' +
+                            '<div class="p-10 text-center text-gray-500 dark:text-gray-400 bg-gray-100 dark:bg-gray-800 rounded-2xl shadow-lg">' +
+                            '    <p class="text-lg">Enter a company name like "Tesla" or "Amazon" to see the latest trade statuses.</p>' +
+                            '</div>' +
+                            '';
                     }
                 }, 400); // 400ms delay after typing stops
             });
